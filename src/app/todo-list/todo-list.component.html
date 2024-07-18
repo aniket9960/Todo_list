@@ -1,1 +1,45 @@
-<p>todo-list works!</p>
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-5 mt-5">
+            <div class="card">
+                <div class="card-hearder text-center fs-3 mt-2">
+                    To-Do List
+                </div>
+                <div class="card-body">
+                    <form [formGroup]="taskFrom" (ngSubmit)="onSubmit()">
+                        <div class="form-floating">
+                            <input type="text" formControlName="task" name="task" id="name" class="form-control"  placeholder="Task">
+                            <label for="name">Task</label>
+                        </div>
+                        <hr>
+                        <button class=" btn btn-primary">Add Task</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center mt-5">
+        <div class="col-6 ">
+            <table class="table table-dark">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Is Completed</th>
+                        <th scope="col">Edit</th>
+                        <th scope="col">Delete</th>
+                    </tr>
+                </thead>
+                <tbody class="table-light">
+                    <tr>
+                      <th scope="row">1</th>
+                      <td>Mark</td>
+                      <td>Otto</td>
+                      <td>edit</td>
+                      <td>delete</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
