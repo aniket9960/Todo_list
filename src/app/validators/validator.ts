@@ -75,4 +75,21 @@ export const confirmPasswordValidator = (controlName : string, ControlNameToMatc
       controlToMatch.setErrors(null);
     }
   }
-}
+};
+
+
+export const customTaskNameValidator = (controlName : string) => {
+  return (formGroup : FormGroup) => {
+    let control = formGroup.controls[controlName];
+  
+  if(control.errors && !control.errors['customTaskNameValidator']){
+    return;
+  }
+
+  if(!(control.value.length>1)){
+    control.setErrors({customTaskNameValidator : true})
+  }else{
+    control.setErrors(null);
+  }
+  }
+};

@@ -10,6 +10,7 @@
                         <div class="form-floating">
                             <input type="text" formControlName="task" name="task" id="name" class="form-control"  placeholder="Task">
                             <label for="name">Task</label>
+                            <span *ngIf="taskFrom.hasError('customTaskNameValidator','task') && taskFrom.controls['task'].dirty">Enter Proper Task Name</span>
                         </div>
                         <hr>
                         <button class=" btn btn-primary">Add Task</button>
@@ -20,6 +21,7 @@
     </div>
     <div class="row justify-content-center mt-5">
         <div class="col-6 ">
+            <span>Total Tasks : {{allTask.count}}</span>
             <table class="table table-dark">
                 <thead>
                     <tr>
@@ -31,11 +33,11 @@
                     </tr>
                 </thead>
                 <tbody class="table-light">
-                    <tr>
-                      <th scope="row">1</th>
-                      <td>Mark</td>
-                      <td>Otto</td>
-                      <td>edit</td>
+                    <tr *ngFor="let task of allTask.Tasks; let idx = index">
+                        <td>{{ idx+1 }}</td>
+                        <td>{{ task.name }}</td>
+                        <td>{{ task.completed ? 'Yes' : 'No' }}</td>
+                      <td><button class="btn btn-secondary" (click)="updateTask(task._id)">Edit</button></td>
                       <td>delete</td>
                     </tr>
                 </tbody>
