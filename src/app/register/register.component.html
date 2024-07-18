@@ -1,0 +1,62 @@
+<div class="container-fluid ">
+    <div class="row mt-2 mb-5 justify-content-center">
+        <div class="col-md-4 gx-1">
+            <div class="card shadow-lg card-Background" >
+                <div class="card-header text-center fs-3 custom-header">
+                    Register
+                </div>
+                <div class="card-body align-items-center">
+                    <form [formGroup]="regForm" (ngSubmit)="onSubmit()" class="text-center">
+                                <div class="form-floating mb-3">
+                                    <input type="text" formControlName="fname" name="fname" id="fname" class="form-control form-rounded" placeholder="First Name" required>
+                                    <label for="fname">First Name</label>
+                                    <span *ngIf="regForm.hasError('customNameValidator','fname') && regForm.controls['fname'].dirty">*Enter Letters Only</span>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" formControlName="lname" name="lname" id="lname" class="form-control form-rounded" placeholder="Last Name" required>
+                                    <label for="lname">Last Name</label>
+                                    <span *ngIf="regForm.hasError('customNameValidator','lname') && regForm.controls['lname'].dirty">*Enter Letters Only</span>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" formControlName="mobileN" name="mobileN" id="mobileN" class="form-control form-rounded" placeholder="Mobile Number">
+                                    <label for="mobileN">Mobile Number</label>
+                                    <span *ngIf="regForm.hasError('pattern','mobileN') && regForm.controls['mobileN'].dirty">*Enter 10 digits</span>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="email" formControlName="emailid" name="emailid" id="emailid" class="form-control form-rounded" placeholder="Email Id">
+                                    <label for="emailid">Email Id</label>
+                                    <span *ngIf="regForm.hasError('customEmailValidator','emailid') && regForm.controls['emailid'].dirty">*Enter Valid Email</span>
+                                </div>
+                                <div class="mb-3 form-floating position-relative">
+                                    <input type="password" formControlName="password" name="password" id="password" class="form-control form-rounded" placeholder="Password" required [type]="passwordFieldType">
+                                    <label for="password" class="form-label">Password</label>
+                                    <i class="eye" [class]="passwordFieldType === 'password' ? 'bi-eye-slash' : 'bi-eye'" (click)="togglePasswordVisibility()"></i>
+                                    <span *ngIf="regForm.hasError('passwordValidator','password') && regForm.controls['password'].dirty ">Password length must be 8 minimum </span>
+                                    <span *ngIf="regForm.hasError('passwordRequirement','password') && regForm.controls['password'].dirty ">must have one digit and special character</span>
+                                </div>
+                                <div class="mb-3 form-floating position-relative">
+                                    <input type="password" formControlName="cpassword" name="cpassword" id="cpassword" class="form-control form-rounded" placeholder="Confirm Password" required [type]="passwordFieldType">
+                                    <label for="cpassword" class="form-label">Confirm Password</label>
+                                    <i class="eye" [class]="passwordFieldType === 'password' ? 'bi-eye-slash' : 'bi-eye'" (click)="togglePasswordVisibility()"></i>
+                                    <span *ngIf="regForm.hasError('confirmPasswordValidator','cpassword')" class="error-message">
+                                        Password does'nt match.
+                                    </span>
+                                </div>
+                                
+                            
+                       
+                        <button type="submit" [disabled]="!regForm.valid" class="btn btn-primary form-rounded"><i class="bi bi-check2-circle"></i> Register</button>
+                    </form>
+                    
+                    <hr>
+                    <div class="text-center">
+                        <button type="button" class="btn btn-danger form-rounded">
+                            <i class="bi bi-google"></i> Sign Up with Google
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>

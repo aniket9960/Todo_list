@@ -1,0 +1,33 @@
+.custom-header {
+    color: rgba(1, 1, 1, 0.674);
+        font-weight: bold;
+        text-shadow: 4px 4px 8px rgb(248, 248, 248);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        letter-spacing: 1.5px;
+        padding: 10px;
+        border-radius: 8px;
+}
+.card-Background{
+    background: linear-gradient(135deg, rgba(103, 219, 228, 0.5), rgba(149, 136, 136, 0.1));
+}
+
+
+.form-floating .form-control {
+    padding-right: 2.5rem;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+i.eye {
+    position: absolute;
+    padding-right: 5px;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
