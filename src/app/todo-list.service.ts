@@ -14,5 +14,7 @@ export class TodoListService {
   saveNewTask(body : any) {
     return this.http.post('http://localhost:3000/tasks/addTask',body);
   }
-
+  deleteTask(body : any){
+    return this.http.delete('http://localhost:3000/tasks/deleteTask/'+body.taskId);
+  }
 }

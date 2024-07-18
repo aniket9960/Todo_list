@@ -37,8 +37,8 @@
                         <td>{{ idx+1 }}</td>
                         <td>{{ task.name }}</td>
                         <td>{{ task.completed ? 'Yes' : 'No' }}</td>
-                      <td><button class="btn btn-secondary" (click)="updateTask(task._id)">Edit</button></td>
-                      <td>delete</td>
+                        <td><button class="btn btn-secondary" (click)="updateTask(task._id)">Edit</button></td>
+                        <td><button class="btn btn-danger" (click)="DeleteTask(task._id)">Delete</button></td>
                     </tr>
                 </tbody>
             </table>

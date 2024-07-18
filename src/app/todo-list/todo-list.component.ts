@@ -16,7 +16,6 @@ import { Router } from '@angular/router';
 })
 export class TodoListComponent  implements OnInit{
 
-
   constructor(private formBuilder : FormBuilder,
               private todoService : TodoListService,
               private router : Router
@@ -52,20 +51,29 @@ export class TodoListComponent  implements OnInit{
         alert(result.message);
         //this.router.navigate([this.router.url]);
         location.reload();
-        
       },
       error : (err : any)=>{
         console.log(err);
-        
       }
     });
-    
   };
 
   updateTask(taskId: any) {
     
     }
-
+  DeleteTask(taskId: any) {
+    this.todoService.deleteTask({taskId}).subscribe({
+      next : (response : any) => {
+        let result = response
+        alert(result.message);
+        //this.router.navigate([this.router.url]);
+        location.reload();
+      },
+      error : (err : any)=>{
+        console.log(err);
+      }
+    });
+    }
 
 
 
