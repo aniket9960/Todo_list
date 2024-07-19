@@ -20,5 +20,9 @@ export class TodoListService {
   updateStatus(body : any){
     return this.http.patch('http://localhost:3000/tasks/updateStatus/'+body.taskId,{isCompleted:body.isComplete});
   }
+  updateTask(body:any){
+    console.log({id:body.id,name:body.name});
+    return this.http.patch('http://localhost:3000/tasks/updateTask/'+body.id,{name:body.name});
+  }
 
 }

@@ -1,20 +1,21 @@
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-5 mt-5">
-            <div class="card">
+            <div class="card text-center">
                 <div class="card-hearder text-center fs-3 mt-2">
                     To-Do List
                 </div>
-                <div class="card-body">
-                    <form [formGroup]="taskFrom" (ngSubmit)="onSubmit()">
+                <div class="card-body ">
+                    <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
                         <div class="form-floating">
-                            <input type="text" formControlName="task" name="task" id="name" class="form-control"  placeholder="Task">
+                            <input type="text" [(ngModel)]="newTaskName" formControlName="task" name="task" id="name" class="form-control"  placeholder="Task">
                             <label for="name">Task</label>
-                            <span *ngIf="taskFrom.hasError('customTaskNameValidator','task') && taskFrom.controls['task'].dirty">Enter Proper Task Name</span>
+                            <span *ngIf="taskForm.hasError('customTaskNameValidator','task') && taskForm.controls['task'].dirty">Enter Proper Task Name</span>
                         </div>
                         <hr>
-                        <button class=" btn btn-primary" >Add Task</button>
+                        <button class=" btn btn-outline-primary" [disabled]="isEditMode" >Add Task</button>
                     </form>
+                    <button class="btn btn-outline-success mt-2" *ngIf="isEditMode" (click)="updateTask()">Update Task</button>
                 </div>
             </div>
         </div>
@@ -41,7 +42,7 @@
                             (change)="updateStatus($event,task._id)" 
                             [checked]="task.isCompleted" type="checkbox">
                         </td>
-                        <td><button class="btn btn-secondary" (click)="updateTask(task._id)">Edit</button></td>
+                        <td><button class="btn btn-secondary" (click)="editTask(task._id,task.name)">Edit</button></td>
                         <td><button class="btn btn-danger" (click)="DeleteTask(task._id)">Delete</button></td>
                     </tr>
                 </tbody>
