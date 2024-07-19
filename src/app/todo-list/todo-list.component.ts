@@ -25,19 +25,16 @@ export class TodoListComponent  implements OnInit{
   
   allTask : any;
   i: number = 1;
+  isEditMode: boolean = false;
+  editTaskId: string | null = null;
+  editTaskName: string | null = null;
+  newTaskName : string | null = null; 
+  
   ngOnInit(){
-    
     this.loadTasks();
-    /* 
-    const showSnackbar = sessionStorage.getItem('showSnackbar');
-    if (showSnackbar) {
-      this.successSnackBar(showSnackbar);
-      sessionStorage.removeItem('showSnackbar'); // Remove flag after displaying snackbar
-    }
- */
   }
 
-  taskFrom = this.formBuilder.group({
+  taskForm = this.formBuilder.group({
     task : ['',[Validators.required]]
   },
 {
@@ -68,16 +65,15 @@ errorSnackBar(message : string){
         this.allTask = response.response
       },
       error : (err : any) => {
-        console.log("error");
-        
         console.log(err)
+        this.errorSnackBar("Something Went Wrong!");
       }
     });
   }
 
   onSubmit(){
-    alert(this.taskFrom.value.task);
-    this.todoService.saveNewTask({name :this.taskFrom.value.task}).subscribe({
+    alert(this.taskForm.value.task);
+    this.todoService.saveNewTask({name :this.taskForm.value.task}).subscribe({
       next : (response : any) => {
         let result = response
         //alert(result.message);
@@ -88,12 +84,41 @@ errorSnackBar(message : string){
       },
       error : (err : any)=>{
         console.log(err);
+        this.errorSnackBar("Something Went Wrong!");
       }
     });
   };
 
-  updateTask(taskId: any) {
-    
+  editTask(id:string,name:string)
+  {
+  console.log(id + "  " + name)
+ 
+            this.taskForm.patchValue({
+                task: name
+            });
+            // Enable edit mode
+            this.isEditMode = true;
+            this.editTaskId = id;
+            
+  };
+
+  updateTask() {
+    this.todoService.updateTask({id:this.editTaskId,name:this.newTaskName}).subscribe({
+      next:(response:any) => {
+        console.log(response);
+        this.successSnackBar(response.message);
+        this.isEditMode = false;
+        this.editTaskId = null;
+        this.newTaskName = null;
+        this.loadTasks();
+
+      },
+      error: (err:any)=>{
+        console.log(err);
+        this.errorSnackBar("Something Went Wrong!");
+        
+      }
+    });
     }
 
   updateStatus(event: Event, taskId: any) {
@@ -107,10 +132,11 @@ errorSnackBar(message : string){
           },
           error:(err:any)=>{
             console.log(err);
+            this.errorSnackBar("Something Went Wrong!");
           }
         });
-        console.log('Checkbox is checked'+ taskId);
-        // Call your function or perform actions here
+        //console.log('Checkbox is checked'+ taskId);
+        
       } else {
         // Checkbox is unchecked
         this.todoService.updateStatus({taskId,isComplete:false}).subscribe({
@@ -121,10 +147,11 @@ errorSnackBar(message : string){
           },
           error:(err:any)=>{
             console.log(err);
+            this.errorSnackBar("Something Went Wrong!");
           }
         });
-        console.log('Checkbox is unchecked' + taskId);
-        // Call your function or perform actions here
+        //console.log('Checkbox is unchecked' + taskId);
+        
       }
   }
 
@@ -141,11 +168,8 @@ errorSnackBar(message : string){
       },
       error : (err : any)=>{
         console.log(err);
+        this.errorSnackBar("Something Went Wrong!");
       }
     });
     }
-
-
-
-
 }
