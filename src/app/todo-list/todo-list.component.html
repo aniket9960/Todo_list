@@ -13,7 +13,7 @@
                             <span *ngIf="taskFrom.hasError('customTaskNameValidator','task') && taskFrom.controls['task'].dirty">Enter Proper Task Name</span>
                         </div>
                         <hr>
-                        <button class=" btn btn-primary">Add Task</button>
+                        <button class=" btn btn-primary" >Add Task</button>
                     </form>
                 </div>
             </div>
@@ -32,11 +32,15 @@
                         <th scope="col">Delete</th>
                     </tr>
                 </thead>
-                <tbody class="table-light">
+                <tbody class="table-light ">
                     <tr *ngFor="let task of allTask.Tasks; let idx = index">
                         <td>{{ idx+1 }}</td>
                         <td>{{ task.name }}</td>
-                        <td>{{ task.completed ? 'Yes' : 'No' }}</td>
+                        <td>{{ task.isCompleted ? 'Yes' : 'No' }}
+                            <input class="form-check-input custom-checkbox mr-2" 
+                            (change)="updateStatus($event,task._id)" 
+                            [checked]="task.isCompleted" type="checkbox">
+                        </td>
                         <td><button class="btn btn-secondary" (click)="updateTask(task._id)">Edit</button></td>
                         <td><button class="btn btn-danger" (click)="DeleteTask(task._id)">Delete</button></td>
                     </tr>
