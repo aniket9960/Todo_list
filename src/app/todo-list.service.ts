@@ -17,4 +17,8 @@ export class TodoListService {
   deleteTask(body : any){
     return this.http.delete('http://localhost:3000/tasks/deleteTask/'+body.taskId);
   }
+  updateStatus(body : any){
+    return this.http.patch('http://localhost:3000/tasks/updateStatus/'+body.taskId,{isCompleted:body.isComplete});
+  }
+
 }
