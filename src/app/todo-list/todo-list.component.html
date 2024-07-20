@@ -1,5 +1,8 @@
 <div class="container-fluid">
     <div class="row justify-content-center">
+        <span *ngIf="loading">
+            <app-spinner></app-spinner>
+        </span>
         <div class="col-5 mt-5">
             <div class="card text-center">
                 <div class="card-hearder text-center fs-3 mt-2">
@@ -23,30 +26,32 @@
     <div class="row justify-content-center mt-5">
         <div class="col-6 ">
             <span>Total Tasks : {{allTask.count}}</span>
-            <table class="table table-dark">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Is Completed</th>
-                        <th scope="col">Edit</th>
-                        <th scope="col">Delete</th>
-                    </tr>
-                </thead>
-                <tbody class="table-light ">
-                    <tr *ngFor="let task of allTask.Tasks; let idx = index">
-                        <td>{{ idx+1 }}</td>
-                        <td>{{ task.name }}</td>
-                        <td>{{ task.isCompleted ? 'Yes' : 'No' }}
-                            <input class="form-check-input custom-checkbox mr-2" 
-                            (change)="updateStatus($event,task._id)" 
-                            [checked]="task.isCompleted" type="checkbox">
-                        </td>
-                        <td><button class="btn btn-secondary" (click)="editTask(task._id,task.name)">Edit</button></td>
-                        <td><button class="btn btn-danger" (click)="DeleteTask(task._id)">Delete</button></td>
-                    </tr>
-                </tbody>
-            </table>
+            <div>
+                <table class="table table-dark">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Is Completed</th>
+                            <th scope="col">Edit</th>
+                            <th scope="col">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-light ">
+                        <tr *ngFor="let task of allTask.Tasks; let idx = index">
+                            <td>{{ idx+1 }}</td>
+                            <td>{{ task.name }}</td>
+                            <td>{{ task.isCompleted ? 'Yes' : 'No' }}
+                                <input class="form-check-input custom-checkbox mr-2" 
+                                (change)="updateStatus($event,task._id)" 
+                                [checked]="task.isCompleted" type="checkbox">
+                            </td>
+                            <td><button class="btn btn-secondary" (click)="editTask(task._id,task.name)">Edit</button></td>
+                            <td><button class="btn btn-danger" (click)="DeleteTask(task._id)">Delete</button></td>
+                        </tr>
+                    </tbody>
+                </table>            
+            </div>
         </div>
     </div>
 </div>
