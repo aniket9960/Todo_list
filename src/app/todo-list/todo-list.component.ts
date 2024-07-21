@@ -6,11 +6,13 @@ import { TodoListService } from '../todo-list.service';
 import { customTaskNameValidator } from '../validators/validator';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { SpinnerComponent } from '../spinner/spinner.component';
+
 
 @Component({
   selector: 'app-todo-list',
   standalone: true,
-  imports: [ReactiveFormsModule,HttpClientModule,CommonModule],
+  imports: [ReactiveFormsModule,HttpClientModule,CommonModule,SpinnerComponent],
   templateUrl: './todo-list.component.html',
   styleUrl: './todo-list.component.css',
   providers : [TodoListService]
@@ -25,12 +27,14 @@ export class TodoListComponent  implements OnInit{
   
   allTask : any;
   i: number = 1;
+  loading: boolean = true;
   isEditMode: boolean = false;
   editTaskId: string | null = null;
   editTaskName: string | null = null;
   newTaskName : string | null = null; 
   
   ngOnInit(){
+    this.loading = true;
     this.loadTasks();
   }
 
@@ -61,10 +65,16 @@ errorSnackBar(message : string){
 
   loadTasks() {
     this.todoService.getAllTasks().subscribe({
+      
       next: (response : any) => {
-        this.allTask = response.response
+        setTimeout(() => {
+          this.loading = false;
+          
+        }, 1000);
+        this.allTask = response.response        
       },
       error : (err : any) => {
+        this.loading = false;
         console.log(err)
         this.errorSnackBar("Something Went Wrong!");
       }
@@ -80,6 +90,7 @@ errorSnackBar(message : string){
         this.successSnackBar(result.message);
         //this.router.navigate([this.router.url]);
         //location.reload();
+        this.loading = true;
         this.loadTasks();
       },
       error : (err : any)=>{
@@ -110,6 +121,7 @@ errorSnackBar(message : string){
         this.isEditMode = false;
         this.editTaskId = null;
         this.newTaskName = null;
+        this.loading = true;
         this.loadTasks();
 
       },
@@ -128,6 +140,7 @@ errorSnackBar(message : string){
           next:(response : any) =>{
             console.log(response);
             this.successSnackBar(response.message);
+            this.loading = true;
             this.loadTasks();
           },
           error:(err:any)=>{
@@ -143,6 +156,7 @@ errorSnackBar(message : string){
           next:(response : any) =>{
             console.log(response);
             this.successSnackBar(response.message);
+            this.loading = true;
             this.loadTasks();
           },
           error:(err:any)=>{
@@ -164,6 +178,7 @@ errorSnackBar(message : string){
         //alert(result.message);
         //this.router.navigate([this.router.url]);
         //location.reload();
+        this.loading = true;
         this.loadTasks();
       },
       error : (err : any)=>{
